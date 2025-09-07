@@ -8,7 +8,8 @@ app.use(express.json());
 app.use(cors());
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_API_KEY = process.env.GROQ_API_KEY; // Use env variable
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const SYSTEM_MESSAGE = process.env.SYSTEM_MESSAGE; // Read system message
 
 app.post('/chat', async (req, res) => {
     const { message } = req.body;
@@ -20,7 +21,7 @@ app.post('/chat', async (req, res) => {
                 messages: [
                     {
                         role: "system",
-                        content: "You are a helpful assisstant of Moiz that answers only about Moiz Ghauri ."
+                        content: SYSTEM_MESSAGE
                     },
                     { role: "user", content: message }
                 ]
